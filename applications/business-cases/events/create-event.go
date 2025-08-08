@@ -1,9 +1,9 @@
 package businesscases
 
 import (
-	entities "products-service-go/domains/entities/events"
-	repositoryevents "products-service-go/infrastructure/repositories/events"
-	"products-service-go/presentation/dto"
+	entities "events-service-go/domains/entities/events"
+	repositoryevents "events-service-go/infrastructure/repositories/events"
+	"events-service-go/presentation/dto"
 )
 
 // CreateEventsUseCase handles the business logic for creating events
@@ -17,8 +17,8 @@ func NewCreateEventsUseCase(eventRepo *repositoryevents.PostgreSQLEventRepositor
 }
 
 // Execute creates a new event
-func (uc *CreateEventsUseCase) Execute(e *dto.CreateEventRequest) (*entities.Event, error) {
-	event, err := uc.eventRepo.Create(&entities.Event{
+func (u *CreateEventsUseCase) Execute(e dto.CreateEventRequest) (entities.Event, error) {
+	event, err := u.eventRepo.Create(entities.Event{
 		Name:        e.Name,
 		Description: e.Description,
 		Location:    e.Location,
@@ -26,7 +26,8 @@ func (uc *CreateEventsUseCase) Execute(e *dto.CreateEventRequest) (*entities.Eve
 	})
 
 	if err != nil {
-		return nil, err
+		return entities.Event{}, err
 	}
+
 	return event, nil
 }

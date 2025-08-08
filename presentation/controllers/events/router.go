@@ -2,11 +2,9 @@ package controllers
 
 import (
 	"database/sql"
-	businesscases "products-service-go/applications/business-cases/events"
-	repositoryevents "products-service-go/infrastructure/repositories/events"
-	"products-service-go/internal/logger"
-	"products-service-go/internal/middleware"
-	"products-service-go/presentation/dto"
+	businesscases "events-service-go/applications/business-cases/events"
+	repositoryevents "events-service-go/infrastructure/repositories/events"
+	"events-service-go/internal/logger"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -29,7 +27,9 @@ func NewEventsController(
 }
 
 // SetupEventsRoutes configures all event-related routes
-func SetupEventsRoutes(app fiber.Router, db *sql.DB) {
+func SetupEventsRoutes(app *fiber.App, db *sql.DB) {
+	logger.Info("Setting up events routes")
+
 	eventRepo := repositoryevents.NewPostgreSQLEventRepository(db)
 	getEventsUseCase := businesscases.NewGetEventsUseCase(eventRepo)
 	createEventsUseCase := businesscases.NewCreateEventsUseCase(eventRepo)
@@ -39,26 +39,6 @@ func SetupEventsRoutes(app fiber.Router, db *sql.DB) {
 	)
 
 	events := app.Group("/events")
-	logger.Info("Setting up events routes")
-
-	events.Get("/",
-		middleware.ValidateWithSchema(middleware.SchemaConfig{
-			ResponseDTOs: map[int]interface{}{
-				200: dto.GetEventsResponse{},
-				500: dto.GetEventsErrorResponse{},
-			},
-		}),
-		eventsController.GetEvents,
-	)
-
-	events.Post("/",
-		middleware.ValidateWithSchema(middleware.SchemaConfig{
-			RequestDTO: dto.CreateEventRequest{},
-			ResponseDTOs: map[int]interface{}{
-				201: dto.CreateEventResponse{},
-				500: dto.CreateEventErrorResponse{},
-			},
-		}),
-		eventsController.CreateEvent,
-	)
+	events.Get("/", eventsController.GetEvents)
+	events.Post("/", eventsController.CreateEvent)
 }

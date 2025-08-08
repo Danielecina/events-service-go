@@ -1,9 +1,8 @@
 package controllers
 
 import (
-	"products-service-go/internal/logger"
-	"products-service-go/internal/middleware"
-	"products-service-go/presentation/dto"
+	"events-service-go/internal/logger"
+	"events-service-go/presentation/dto"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -12,19 +11,21 @@ import (
 func (ctrl *EventController) CreateEvent(c *fiber.Ctx) error {
 	logger.Info("Creating new product event")
 
-	eventRequest, err := middleware.GetValidatedRequest[dto.CreateEventRequest](c)
-	if err != nil {
+	var eventRequest dto.CreateEventRequest
+	if err := c.BodyParser(&eventRequest); err != nil {
+		logger.Error("Failed to parse body: %v", err)
 		return c.Status(fiber.StatusBadRequest).JSON(dto.CreateEventErrorResponse{
-			Message: err.Error(),
+			StatusCode: fiber.ErrBadRequest.Code,
+			Message:    "Failed to parse body",
 		})
 	}
 
-	logger.Info("Starting creating event: %s", eventRequest.Name)
-	event, err := ctrl.createEventsUseCase.Execute(&eventRequest)
+	event, err := ctrl.createEventsUseCase.Execute(eventRequest)
 	if err != nil {
 		logger.Error("Failed to create event: %v", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(dto.CreateEventErrorResponse{
-			Message: "Failed to create event",
+			StatusCode: fiber.ErrInternalServerError.Code,
+			Message:    "Failed to create event",
 		})
 	}
 

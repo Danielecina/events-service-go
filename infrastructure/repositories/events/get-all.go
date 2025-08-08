@@ -1,6 +1,6 @@
 package repositoryevents
 
-import entities "products-service-go/domains/entities/events"
+import entities "events-service-go/domains/entities/events"
 
 // GetAll retrieves all events from the PostgreSQL database
 func (r *PostgreSQLEventRepository) GetAll() ([]entities.Event, error) {

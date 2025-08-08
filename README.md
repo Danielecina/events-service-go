@@ -1,12 +1,15 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+<a href="https://go.dev/" target="blank"><img src="https://blog.golang.org/go-brand/Go-Logo/PNG/Go-Logo_Blue.png" width="120" alt="Go Logo" /></a>
 </p>
 
-<p align="center">An incredible exercise to test a <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>  
+<p align="center">An simble service to test a <a href="http://nodejs.org" target="_blank">Go + Fiber + Postgres</a> for building efficient and scalable microservice</p>  
   <p align="center">
-   <a href='https://coveralls.io/github/Danielecina/Nest-Products-Service?branch=master'>
-     <img src='https://coveralls.io/repos/github/Danielecina/Nest-Products-Service/badge.svg?branch=master' alt='Coverage Status' />
-   </a>
+    <a href="https://coveralls.io/github/Danielecina/events-service-go?branch=main">
+      <img src="https://coveralls.io/repos/github/Danielecina/events-service-go/badge.svg?branch=main" alt="Coverage Status" />
+    </a>
+    <a href="https://goreportcard.com/report/github.com/Danielecina/events-service-go">
+      <img src="https://goreportcard.com/badge/github.com/Danielecina/events-service-go" alt="Go Report Card" />
+    </a>
   </p>
 </p>
 
@@ -22,11 +25,14 @@ This service follows Domain-Driven Design (DDD) principles and is structured as 
 │   └── entities/         # Entity implementations
 │
 ├── infrastructure/       # Layer handling external configurations and integrations
-│   └── persistence/      # Database implementations and ORM configurations
+│   └── databases/        # Database setup
+│   └── repositories/     # Repository implementations clients
 │
-└── presentation/         # Layer handling external service exposure and interfaces
-    ├── controllers/      # REST API controllers
-        └── dto/          # Data Transfer Objects for request validation
+├── presentation/         # Layer handling external service exposure and interfaces
+│   ├── controllers/      # REST API controllers
+│   └── dto/.             # Data Transfer Objects for request validation
+│
+└── main.go               # The place where magic begins
 ```
 
 ## Try the service locally
@@ -50,9 +56,9 @@ $ npm run test:cov
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is [MIT licensed](https://opensource.org/licenses/MIT).
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-[coveralls-image]: https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master
-[coveralls-url]: https://coveralls.io/github/Danielecina/products-service?branch=master
+[go-report-card]: https://goreportcard.com/badge/github.com/Danielecina/events-service-go
+[go-report-card-url]: https://goreportcard.com/report/github.com/Danielecina/events-service-go
+[coveralls-image]: https://coveralls.io/repos/github/Danielecina/events-service-go/badge.svg?branch=main
+[coveralls-url]: https://coveralls.io/github/Danielecina/events-service-go?branch=main

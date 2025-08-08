@@ -1,8 +1,8 @@
 package businesscases
 
 import (
-	entities "products-service-go/domains/entities/events"
-	repositoryevents "products-service-go/infrastructure/repositories/events"
+	entities "events-service-go/domains/entities/events"
+	repositoryevents "events-service-go/infrastructure/repositories/events"
 )
 
 // GetEventsUseCase handles the business logic for getting events

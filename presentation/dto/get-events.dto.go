@@ -1,6 +1,6 @@
 package dto
 
-import entities "products-service-go/domains/entities/events"
+import entities "events-service-go/domains/entities/events"
 
 // GetEventsResponse represents the response after getting events
 type GetEventsResponse struct {

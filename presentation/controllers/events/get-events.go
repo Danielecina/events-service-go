@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"products-service-go/internal/logger"
-	"products-service-go/presentation/dto"
+	"events-service-go/internal/logger"
+	"events-service-go/presentation/dto"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -15,7 +15,8 @@ func (ctrl *EventController) GetEvents(c *fiber.Ctx) error {
 	if err != nil {
 		logger.Error("Failed to fetch events: %v", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(dto.GetEventsErrorResponse{
-			Message: "Failed to fetch events",
+			StatusCode: fiber.ErrInternalServerError.Code,
+			Message:    "Failed to fetch events",
 		})
 	}
 
