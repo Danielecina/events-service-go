@@ -17,6 +17,7 @@ func (r *PostgreSQLEventRepository) GetAll() ([]entities.Event, error) {
 	defer rows.Close()
 
 	var events []entities.Event
+
 	for rows.Next() {
 		var event entities.Event
 		err := rows.Scan(&event.ID, &event.Name, &event.Description, &event.Location, &event.CreatedAt, &event.UserID)
