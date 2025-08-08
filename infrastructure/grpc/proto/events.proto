@@ -1,0 +1,34 @@
+syntax="proto3";
+
+package events.v1;
+
+option go_package = "products-service-go/infrastructure/grpc/generated";
+
+import "google/protobuf/timestamp.proto";
+
+message Event {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string location = 4;
+  google.protobuf.Timestamp date_time = 5;
+  int32 user_id = 6;
+}
+
+message EmptyRequest {}
+
+message CreateRequest {
+  Event event = 1;
+}
+message CreateResponse {
+  string id = 1;
+}
+
+message GetListResponse {
+  repeated Event events = 1;
+}
+
+service EventsService {
+  rpc Create(CreateRequest) returns (CreateResponse);
+  rpc GetList(EmptyRequest) returns (GetListResponse);
+}

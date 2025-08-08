@@ -1,0 +1,7 @@
+version: v2
+plugins:
+  - local: protoc-gen-go
+    out: infrastructure/grpc/generated
+    opt: paths=source_relative
+inputs:
+  - directory: infrastructure/grpc/proto
