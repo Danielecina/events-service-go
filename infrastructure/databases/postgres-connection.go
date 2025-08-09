@@ -2,32 +2,37 @@ package databases
 
 import (
 	"database/sql"
+	"events-service-go/internal/utils"
 	"fmt"
 	"log"
-	"os"
+	"strconv"
 
 	_ "github.com/lib/pq" // Driver PostgreSQL
 )
 
 // Config holds the configuration for the PostgreSQL connection.
 type Config struct {
-	Host     string
-	Port     string
-	User     string
-	Password string
-	DBName   string
-	SSLMode  string
+	Host         string
+	Port         string
+	User         string
+	Password     string
+	DBName       string
+	SSLMode      string
+	MaxIdleConns string
+	MaxOpenConns string
 }
 
 // LoadConfig loads the PostgreSQL configuration from environment variables or defaults.
 func LoadConfig() *Config {
 	return &Config{
-		Host:     getEnv("DB_HOST", "localhost"),
-		Port:     getEnv("DB_PORT", "5432"),
-		User:     getEnv("DB_USER", "products_user"),
-		Password: getEnv("DB_PASSWORD", "products_password"),
-		DBName:   getEnv("DB_NAME", "products_service"),
-		SSLMode:  getEnv("DB_SSLMODE", "disable"),
+		Host:         utils.GetEnv("DB_HOST", "localhost"),
+		Port:         utils.GetEnv("DB_PORT", "5432"),
+		User:         utils.GetEnv("DB_USER", "products_user"),
+		Password:     utils.GetEnv("DB_PASSWORD", "products_password"),
+		DBName:       utils.GetEnv("DB_NAME", "products_service"),
+		SSLMode:      utils.GetEnv("DB_SSLMODE", "disable"),
+		MaxIdleConns: utils.GetEnv("DB_MAX_IDLE_CONNS", "10"),
+		MaxOpenConns: utils.GetEnv("DB_MAX_OPEN_CONNS", "5"),
 	}
 }
 
@@ -44,18 +49,25 @@ func ConnectDB() (*sql.DB, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect to database: %w", err)
 	}
+	defer db.Close()
 
 	if err := db.Ping(); err != nil {
 		return nil, fmt.Errorf("failed to ping database: %w", err)
 	}
 
+	maxIdleConns, err := strconv.Atoi(config.MaxIdleConns)
+	if err != nil {
+		return nil, fmt.Errorf("invalid DB_MAX_IDLE_CONNS value: %w", err)
+	}
+
+	maxOpenConns, err := strconv.Atoi(config.MaxOpenConns)
+	if err != nil {
+		return nil, fmt.Errorf("invalid DB_MAX_OPEN_CONNS value: %w", err)
+	}
+
+	db.SetMaxOpenConns(maxOpenConns)
+	db.SetMaxIdleConns(maxIdleConns)
+
 	log.Println("Successfully connected to PostgreSQL")
 	return db, nil
-}
-
-func getEnv(key, defaultValue string) string {
-	if value := os.Getenv(key); value != "" {
-		return value
-	}
-	return defaultValue
 }

@@ -22,14 +22,14 @@ func (r *PostgreSQLEventRepository) GetAll(page int, limit int) ([]entities.Even
 		logger.Error("Failed to execute query: %v", err)
 		return nil, err
 	}
+
 	defer rows.Close()
 
 	var events []entities.Event
-
+	logger.Debug("Scanning rows for events")
 	for rows.Next() {
 		var event entities.Event
 		err := rows.Scan(&event.Name, &event.Description, &event.Location, &event.CreatedAt, &event.UserID, &event.EventID)
-
 		if err != nil {
 			logger.Error("Failed to scan row: %v", err)
 			return nil, err

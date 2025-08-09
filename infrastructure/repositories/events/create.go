@@ -22,6 +22,7 @@ func (r *PostgreSQLEventRepository) Create(event entities.Event) (entities.Event
 	event.CreatedAt = createdAt
 
 	_, err := r.db.Exec(query, event.Name, event.Description, event.Location, createdAt, event.UserID, eventID)
+
 	if err != nil {
 		logger.Error("Failed to execute query: %v", err)
 		return entities.Event{}, err

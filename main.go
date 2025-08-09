@@ -14,11 +14,9 @@ func main() {
 	logger.Info("Starting application server...")
 
 	db, err := databases.ConnectDB()
-
 	if err != nil {
 		log.Fatal("Failed to connect to database:", err)
 	}
-	defer db.Close()
 
 	app := fiber.New()
 
