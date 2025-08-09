@@ -7,20 +7,27 @@ import (
 	"events-service-go/presentation/dto"
 )
 
-// CreateEventsUseCase handles the business logic for creating events
-type CreateEventsUseCase struct {
-	eventRepo *repositoryevents.PostgreSQLEventRepository
+// CreateEventsUseCaseClient defines the methods for create events use case
+type CreateEventsUseCaseClient interface {
+	Execute(e dto.CreateEventRequest) (dto.CreateEventResponse, error)
 }
 
-// NewCreateEventsUseCase creates a new create events use case instance
-func NewCreateEventsUseCase(eventRepo *repositoryevents.PostgreSQLEventRepository) *CreateEventsUseCase {
-	return &CreateEventsUseCase{eventRepo: eventRepo}
+// CreateEventsUseCase handles the business logic for creating events
+type CreateEventsUseCase struct {
+	repo repositoryevents.EventRepositoryClient
+}
+
+// NewCreateEventsUseCase creates a new instance of CreateEventsUseCase
+func NewCreateEventsUseCase(repo repositoryevents.EventRepositoryClient) CreateEventsUseCaseClient {
+	return &CreateEventsUseCase{
+		repo: repo,
+	}
 }
 
 // Execute creates a new event
-func (u *CreateEventsUseCase) Execute(e dto.CreateEventRequest) (dto.CreateEventResponse, error) {
+func (uc *CreateEventsUseCase) Execute(e dto.CreateEventRequest) (dto.CreateEventResponse, error) {
 	logger.Debug("Executing business use case CreateEvent with %+v", e)
-	event, err := u.eventRepo.Create(entities.Event{
+	event, err := uc.repo.Create(entities.Event{
 		Name:        e.Name,
 		Description: e.Description,
 		Location:    e.Location,

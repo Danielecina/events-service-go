@@ -6,7 +6,7 @@ import (
 )
 
 // GetAll retrieves all events from the PostgreSQL database
-func (r *PostgreSQLEventRepository) GetAll(page int, limit int) ([]entities.Event, error) {
+func (r *EventRepository) GetAll(page int, limit int) ([]entities.Event, error) {
 	logger.Debug("Executing repository method GetAll with page %d and limit %d", page, limit)
 
 	query := `

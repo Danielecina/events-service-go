@@ -9,36 +9,25 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// EventController handles HTTP requests for events
+// EventController handles event-related requests
 type EventController struct {
-	getEventsUseCase    *businesscases.GetEventsUseCase
-	createEventsUseCase *businesscases.CreateEventsUseCase
-}
-
-// NewEventsController factory to create a new events controller
-func NewEventsController(
-	getEventsUseCase *businesscases.GetEventsUseCase,
-	createEventsUseCase *businesscases.CreateEventsUseCase,
-) *EventController {
-	return &EventController{
-		getEventsUseCase:    getEventsUseCase,
-		createEventsUseCase: createEventsUseCase,
-	}
+	createEventsUseCase businesscases.CreateEventsUseCaseClient
+	getEventsUseCase    businesscases.GetEventsUseCaseClient
 }
 
 // SetupEventsRoutes configures all event-related routes
 func SetupEventsRoutes(app *fiber.App, db *sql.DB) {
 	logger.Info("Setting up events routes")
 
+	// Initialize the event repository to pass to the controller
 	eventRepo := repositoryevents.NewPostgreSQLEventRepository(db)
-	getEventsUseCase := businesscases.NewGetEventsUseCase(eventRepo)
-	createEventsUseCase := businesscases.NewCreateEventsUseCase(eventRepo)
-	eventsController := NewEventsController(
-		getEventsUseCase,
-		createEventsUseCase,
-	)
 
-	events := app.Group("/events")
-	events.Get("/", eventsController.GetEvents)
-	events.Post("/", eventsController.CreateEvent)
+	// Create an instance of EventController with the use cases
+	eventsController := &EventController{
+		getEventsUseCase:    businesscases.NewGetEventsUseCase(eventRepo),
+		createEventsUseCase: businesscases.NewCreateEventsUseCase(eventRepo),
+	}
+
+	app.Get("/events/", eventsController.GetEvents)
+	app.Post("/events/", eventsController.CreateEvent)
 }

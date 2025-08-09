@@ -6,21 +6,28 @@ import (
 	"events-service-go/presentation/dto"
 )
 
-// GetEventsUseCase handles the business logic for getting events
-type GetEventsUseCase struct {
-	eventRepo *repositoryevents.PostgreSQLEventRepository
+// GetEventsUseCaseClient defines the methods for get events use case
+type GetEventsUseCaseClient interface {
+	Execute(page int, limit int) ([]dto.GetEventResponse, error)
 }
 
-// NewGetEventsUseCase creates a new get events use case instance
-func NewGetEventsUseCase(eventRepo *repositoryevents.PostgreSQLEventRepository) *GetEventsUseCase {
-	return &GetEventsUseCase{eventRepo: eventRepo}
+// GetEventsUseCase handles the business logic for getting events
+type GetEventsUseCase struct {
+	repo repositoryevents.EventRepositoryClient
+}
+
+// NewGetEventsUseCase creates a new instance of GetEventsUseCase
+func NewGetEventsUseCase(repo repositoryevents.EventRepositoryClient) GetEventsUseCaseClient {
+	return &GetEventsUseCase{
+		repo: repo,
+	}
 }
 
 // Execute retrieves all events
 func (uc *GetEventsUseCase) Execute(page int, limit int) ([]dto.GetEventResponse, error) {
 	logger.Debug("Executing business use case GetEvents on page %d with limit %d", page, limit)
 
-	response, err := uc.eventRepo.GetAll(page, limit)
+	response, err := uc.repo.GetAll(page, limit)
 	if err != nil {
 		logger.Error("Failed to get events: %v", err)
 		return nil, err
