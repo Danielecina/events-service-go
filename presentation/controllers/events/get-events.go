@@ -10,8 +10,10 @@ import (
 // GetEvents returns the list of product events
 func (ctrl *EventController) GetEvents(c *fiber.Ctx) error {
 	logger.Info("Fetching product events")
+	page := c.QueryInt("page", 1)
+	limit := c.QueryInt("limit", 10)
 
-	events, err := ctrl.getEventsUseCase.Execute()
+	events, err := ctrl.getEventsUseCase.Execute(page, limit)
 	if err != nil {
 		logger.Error("Failed to fetch events: %v", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(dto.GetEventsErrorResponse{
@@ -20,5 +22,6 @@ func (ctrl *EventController) GetEvents(c *fiber.Ctx) error {
 		})
 	}
 
+	logger.Info("Successfully fetched %d events", len(events))
 	return c.JSON(events)
 }

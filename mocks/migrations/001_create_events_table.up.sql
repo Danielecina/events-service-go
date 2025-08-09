@@ -5,5 +5,6 @@ CREATE TABLE IF NOT EXISTS events (
     user_id VARCHAR(255) NOT NULL,
     name VARCHAR(255) NOT NULL,
     description TEXT,
+    location VARCHAR(255),
     created_at TIMESTAMP NOT NULL DEFAULT NOW()
 );

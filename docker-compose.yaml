@@ -21,7 +21,7 @@ services:
 
   migrate:
     image: migrate/migrate
-    command: -path=/mocks -database postgres://events_user:events_password@postgres:5432/events_service?sslmode=disable up
+    command: -path=/mocks/migrations -database postgres://events_user:events_password@postgres:5432/events_service?sslmode=disable up
     volumes:
       - ./mocks:/mocks
     depends_on:

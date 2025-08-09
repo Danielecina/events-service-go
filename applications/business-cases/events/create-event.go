@@ -3,6 +3,7 @@ package businesscases
 import (
 	entities "events-service-go/domains/entities/events"
 	repositoryevents "events-service-go/infrastructure/repositories/events"
+	"events-service-go/internal/logger"
 	"events-service-go/presentation/dto"
 )
 
@@ -17,7 +18,8 @@ func NewCreateEventsUseCase(eventRepo *repositoryevents.PostgreSQLEventRepositor
 }
 
 // Execute creates a new event
-func (u *CreateEventsUseCase) Execute(e dto.CreateEventRequest) (entities.Event, error) {
+func (u *CreateEventsUseCase) Execute(e dto.CreateEventRequest) (dto.CreateEventResponse, error) {
+	logger.Debug("Executing business use case CreateEvent with %+v", e)
 	event, err := u.eventRepo.Create(entities.Event{
 		Name:        e.Name,
 		Description: e.Description,
@@ -26,8 +28,10 @@ func (u *CreateEventsUseCase) Execute(e dto.CreateEventRequest) (entities.Event,
 	})
 
 	if err != nil {
-		return entities.Event{}, err
+		return dto.CreateEventResponse{}, err
 	}
 
-	return event, nil
+	return dto.CreateEventResponse{
+		EventID: event.EventID,
+	}, nil
 }

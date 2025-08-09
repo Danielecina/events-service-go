@@ -9,8 +9,6 @@ import (
 
 // CreateEvent creates a new product event
 func (ctrl *EventController) CreateEvent(c *fiber.Ctx) error {
-	logger.Info("Creating new product event")
-
 	var eventRequest dto.CreateEventRequest
 	if err := c.BodyParser(&eventRequest); err != nil {
 		logger.Error("Failed to parse body: %v", err)
@@ -19,6 +17,8 @@ func (ctrl *EventController) CreateEvent(c *fiber.Ctx) error {
 			Message:    "Failed to parse body",
 		})
 	}
+
+	logger.Info("Creating new product event with request: %+v", eventRequest)
 
 	event, err := ctrl.createEventsUseCase.Execute(eventRequest)
 	if err != nil {
@@ -29,5 +29,6 @@ func (ctrl *EventController) CreateEvent(c *fiber.Ctx) error {
 		})
 	}
 
+	logger.Info("Successfully created event with ID: %s", event.EventID)
 	return c.Status(fiber.StatusCreated).JSON(event)
 }

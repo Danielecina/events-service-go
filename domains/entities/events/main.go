@@ -6,9 +6,8 @@ import (
 
 // Event entity
 type Event struct {
-	ID          int
-	EventID     int
-	UserID      int
+	EventID     string
+	UserID      string
 	Name        string
 	Description string
 	Location    string
@@ -16,7 +15,7 @@ type Event struct {
 }
 
 // NewEvent is a Factory function for creating a new event instance
-func NewEvent(name, description, location string, createdAt time.Time, userID int) *Event {
+func NewEvent(name, description, location string, createdAt time.Time, userID string) *Event {
 	return &Event{
 		Name:        name,
 		Description: description,

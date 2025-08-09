@@ -1,11 +1,11 @@
 package dto
 
-import entities "events-service-go/domains/entities/events"
-
 // GetEventsResponse represents the response after getting events
-type GetEventsResponse struct {
-	Events []entities.Event `json:"events"`
-	ID     int              `json:"id"`
+type GetEventResponse struct {
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Location    string `json:"location,omitempty"`
+	UserID      string `json:"user_id"`
 }
 
 // GetEventsErrorResponse represents an error response
