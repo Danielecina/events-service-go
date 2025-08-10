@@ -14,6 +14,7 @@ require (
 	github.com/gkampitakis/ciinfo v0.3.2 // indirect
 	github.com/gkampitakis/go-diff v1.3.2 // indirect
 	github.com/goccy/go-yaml v1.18.0 // indirect
+	github.com/h2non/parth v0.0.0-20190131123155-b4df798d6542 // indirect
 	github.com/klauspost/compress v1.18.0 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
@@ -36,6 +37,7 @@ require (
 require (
 	github.com/gkampitakis/go-snaps v0.5.14
 	github.com/gofiber/fiber/v2 v2.52.5
+	github.com/h2non/gock v1.2.0
 	github.com/stretchr/testify v1.10.0
 	golang.org/x/sys v0.34.0 // indirect
 )

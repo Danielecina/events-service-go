@@ -27,7 +27,7 @@ func TestCreateEventsUseCase(t *testing.T) {
 			},
 		}
 
-		useCase := NewCreateEventsUseCase(eventsRepositories)
+		useCase := NewCreateEventUseCase(eventsRepositories)
 
 		input := dto.CreateEventRequest{
 			Name:        "Test Event",
@@ -52,7 +52,7 @@ func TestCreateEventsUseCase(t *testing.T) {
 			},
 		}
 
-		useCase := NewCreateEventsUseCase(eventsRepositories)
+		useCase := NewCreateEventUseCase(eventsRepositories)
 
 		input := dto.CreateEventRequest{
 			Name:        "Test Event",

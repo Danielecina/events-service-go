@@ -31,8 +31,8 @@ func (uc *CreateEventsUseCase) Execute(e dto.CreateEventRequest) (dto.CreateEven
 	}, nil
 }
 
-// NewCreateEventsUseCase creates a new instance of CreateEventsUseCase
-func NewCreateEventsUseCase(repo repositoryevents.EventRepositoryClient) CreateEventsUseCase {
+// NewCreateEventUseCase creates a new instance of CreateEventsUseCase
+func NewCreateEventUseCase(repo repositoryevents.EventRepositoryClient) CreateEventsUseCase {
 	return CreateEventsUseCase{
 		repo: repo,
 	}

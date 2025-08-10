@@ -24,7 +24,7 @@ func SetupEventsRoutes(app *fiber.App, db *sql.DB) {
 
 	// Create an instance of EventController with the use cases
 	eventsController := &EventController{
-		createEventsUseCase: businesscases.NewCreateEventsUseCase(eventRepo),
+		createEventsUseCase: businesscases.NewCreateEventUseCase(eventRepo),
 		getEventsUseCase:    businesscases.NewGetEventsUseCase(eventRepo),
 	}
 
