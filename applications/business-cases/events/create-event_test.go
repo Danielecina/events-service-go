@@ -16,7 +16,7 @@ func TestCreateEventsUseCase(t *testing.T) {
 	t.Run("Execute_Success", func(t *testing.T) {
 		eventID := "test-event-id"
 		eventsRepositories := &repositoryevents.MockEventRepositoryClient{
-			CreateFunc: func(event entities.Event) (entities.Event, error) {
+			CreateMock: func(event entities.Event) (entities.Event, error) {
 				return entities.Event{
 					EventID:     eventID,
 					Name:        event.Name,
@@ -47,7 +47,7 @@ func TestCreateEventsUseCase(t *testing.T) {
 
 	t.Run("Execute_Error", func(t *testing.T) {
 		eventsRepositories := &repositoryevents.MockEventRepositoryClient{
-			CreateFunc: func(event entities.Event) (entities.Event, error) {
+			CreateMock: func(event entities.Event) (entities.Event, error) {
 				return entities.Event{}, fmt.Errorf("db error")
 			},
 		}

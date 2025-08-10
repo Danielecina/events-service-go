@@ -6,26 +6,14 @@ import (
 	"events-service-go/presentation/dto"
 )
 
-// GetEventsUseCaseClient defines the methods for get events use case
-type GetEventsUseCaseClient interface {
-	Execute(page int, limit int) ([]dto.GetEventResponse, error)
-}
-
 // GetEventsUseCase handles the business logic for getting events
 type GetEventsUseCase struct {
 	repo repositoryevents.EventRepositoryClient
 }
 
-// NewGetEventsUseCase creates a new instance of GetEventsUseCase
-func NewGetEventsUseCase(repo repositoryevents.EventRepositoryClient) GetEventsUseCaseClient {
-	return &GetEventsUseCase{
-		repo: repo,
-	}
-}
-
 // Execute retrieves all events
-func (uc *GetEventsUseCase) Execute(page int, limit int) ([]dto.GetEventResponse, error) {
-	logger.Debug("Executing business use case GetEvents on page %d with limit %d", page, limit)
+func (uc *GetEventsUseCase) Execute(page int, limit int) ([]dto.GetEventsResponse, error) {
+	logger.Debug("Starting business case to get Events")
 
 	response, err := uc.repo.GetAll(page, limit)
 	if err != nil {
@@ -34,9 +22,9 @@ func (uc *GetEventsUseCase) Execute(page int, limit int) ([]dto.GetEventResponse
 	}
 
 	logger.Info("Successfully retrieved %d events", len(response))
-	var dtos []dto.GetEventResponse
+	var events []dto.GetEventsResponse
 	for _, event := range response {
-		dtos = append(dtos, dto.GetEventResponse{
+		events = append(events, dto.GetEventsResponse{
 			Name:        event.Name,
 			Description: event.Description,
 			Location:    event.Location,
@@ -44,5 +32,12 @@ func (uc *GetEventsUseCase) Execute(page int, limit int) ([]dto.GetEventResponse
 		})
 	}
 
-	return dtos, nil
+	return events, nil
+}
+
+// NewGetEventsUseCase creates a new instance of GetEventsUseCase
+func NewGetEventsUseCase(repo repositoryevents.EventRepositoryClient) GetEventsUseCase {
+	return GetEventsUseCase{
+		repo: repo,
+	}
 }
