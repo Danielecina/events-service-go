@@ -7,6 +7,8 @@ import (
 	"log"
 	"strconv"
 
+	repositoryevents "events-service-go/infrastructure/repositories/events"
+
 	_ "github.com/lib/pq" // Driver PostgreSQL
 )
 
@@ -49,10 +51,13 @@ func ConnectDB() (*sql.DB, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect to database: %w", err)
 	}
-	defer db.Close()
 
 	if err := db.Ping(); err != nil {
 		return nil, fmt.Errorf("failed to ping database: %w", err)
+	}
+
+	if err := repositoryevents.CreateEventsTable(db); err != nil {
+		return nil, fmt.Errorf("failed to create events table: %w", err)
 	}
 
 	maxIdleConns, err := strconv.Atoi(config.MaxIdleConns)
