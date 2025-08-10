@@ -10,7 +10,7 @@ import (
 
 // Create inserts a new event into the PostgreSQL database
 func (r *EventRepository) Create(event entities.Event) (entities.Event, error) {
-	logger.Debug("Executing repository method Create for event: %s", event.Name)
+	logger.Debug("Creating event called: %s", event.Name)
 
 	query := `
 	   INSERT INTO events (name, description, location, created_at, user_id, event_id)

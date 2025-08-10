@@ -7,13 +7,12 @@ import (
 
 // GetAll retrieves all events from the PostgreSQL database
 func (r *EventRepository) GetAll(page int, limit int) ([]entities.Event, error) {
-	logger.Debug("Executing repository method GetAll with page %d and limit %d", page, limit)
+	logger.Debug("Starting to retrieve events: %#v", map[string]interface{}{"page": page, "limit": limit})
 
 	query := `
 		SELECT name, description, location, created_at, user_id, event_id 
 		FROM events 
-		ORDER BY created_at 
-		DESC
+		ORDER BY created_at DESC
 		LIMIT $1 OFFSET $2`
 
 	rows, err := r.db.Query(query, limit, (page-1)*limit)
