@@ -3,7 +3,7 @@ package main
 import (
 	"events-service-go/infrastructure/databases"
 	"events-service-go/internal/logger"
-	"events-service-go/internal/middleware"
+	mw "events-service-go/internal/middleware"
 	controllersevents "events-service-go/presentation/controllers/events"
 	"log"
 
@@ -17,10 +17,11 @@ func main() {
 	if err != nil {
 		log.Fatal("Failed to connect to database:", err)
 	}
+	defer db.Close()
 
 	app := fiber.New()
 
-	app.Use(middleware.MiddlewareLogger())
+	app.Use(mw.MiddlewareLogger())
 
 	controllersevents.SetupEventsRoutes(app, db)
 

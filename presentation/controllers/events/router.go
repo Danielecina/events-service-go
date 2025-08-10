@@ -11,8 +11,8 @@ import (
 
 // EventController handles event-related requests
 type EventController struct {
-	createEventsUseCase businesscases.CreateEventsUseCaseClient
-	getEventsUseCase    businesscases.GetEventsUseCaseClient
+	createEventsUseCase businesscases.CreateEventsUseCase
+	getEventsUseCase    businesscases.GetEventsUseCase
 }
 
 // SetupEventsRoutes configures all event-related routes
@@ -24,8 +24,8 @@ func SetupEventsRoutes(app *fiber.App, db *sql.DB) {
 
 	// Create an instance of EventController with the use cases
 	eventsController := &EventController{
-		getEventsUseCase:    businesscases.NewGetEventsUseCase(eventRepo),
 		createEventsUseCase: businesscases.NewCreateEventsUseCase(eventRepo),
+		getEventsUseCase:    businesscases.NewGetEventsUseCase(eventRepo),
 	}
 
 	app.Get("/events/", eventsController.GetEvents)

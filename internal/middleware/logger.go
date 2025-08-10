@@ -8,6 +8,6 @@ import (
 // MiddlewareLogger returns a Fiber middleware for logging HTTP requests
 func MiddlewareLogger() fiber.Handler {
 	return fiberlogger.New(fiberlogger.Config{
-		Format: "[${time}] ${status} - ${method} ${path} - ${latency}\n",
+		Format: "[APP] [${time}]: ${method} ${path} ${status} - ${latency}\n",
 	})
 }
