@@ -1,0 +1,4 @@
+
+[TestConfig - 1]
+host=host port=1234 user=user password=pass dbname=db sslmode=disable
+---
