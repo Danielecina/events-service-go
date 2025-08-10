@@ -1,0 +1,10 @@
+
+[TestCreateEventRequest/Expect_to_serialize_CreateEventRequest_correctly - 1]
+{"name":"Evento","description":"Descrizione","location":"Luogo","user_id":"user-1"}
+create_event_request.json
+---
+
+[TestCreateEventErrorResponse/Expect_to_serialize_CreateEventErrorResponse_correctly - 1]
+{"message":"errore","error_code":"E001","status_code":400,"errors":["campo mancante"]}
+create_event_error_response.json
+---

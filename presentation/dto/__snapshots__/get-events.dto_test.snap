@@ -1,0 +1,10 @@
+
+[TestGetEventsResponse/Expect_to_serialize_GetEventsResponse_correctly - 1]
+{"name":"Evento","description":"Descrizione","location":"Luogo","user_id":"user-1"}
+get_event_response.json
+---
+
+[TestGetEventsErrorResponse/Expect_to_serialize_GetEventsErrorResponse_correctly - 1]
+{"message":"errore","error_code":"E002","status_code":404,"errors":["evento non trovato"]}
+get_event_error_response.json
+---
