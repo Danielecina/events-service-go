@@ -1,7 +1,7 @@
 package dto
 
 // GetEventsResponse represents the response after getting events
-type GetEventResponse struct {
+type GetEventsResponse struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	Location    string `json:"location,omitempty"`
