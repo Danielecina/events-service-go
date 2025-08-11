@@ -1,0 +1,7 @@
+
+[TestGetAllEventsUseCase/Execute_Success - 1]
+[]dto.GetEventResponse{
+    {Name:"Event 1", Description:"Desc 1", Location:"Loc 1", UserID:"user-1", CreatedAt:"0001-01-01T00:00:00Z", EventID:"event-1"},
+    {Name:"Event 2", Description:"Desc 2", Location:"Loc 2", UserID:"user-2", CreatedAt:"0001-01-01T00:00:00Z", EventID:"event-2"},
+}
+---

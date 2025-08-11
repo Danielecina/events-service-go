@@ -24,7 +24,7 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          go test -v -coverprofile=coverage.out $(go list ./... | grep -v 'mock')
+          go test -v -coverprofile=coverage.out $(go list ./... | grep -v 'test-utils')
       
       - name: Install gcov2lcov
         run: go install github.com/jandelgado/gcov2lcov@latest
@@ -32,10 +32,6 @@ jobs:
       - name: Convert Go coverage to lcov
         run: |
           ~/go/bin/gcov2lcov -infile coverage.out -outfile coverage.lcov
-
-      - name: Fix lcov paths for Coveralls
-        run: |
-          sed -i 's|SF=events-service-go/|SF=./|g' coverage.lcov
 
       - name: Send coverage to Coveralls
         uses: coverallsapp/github-action@v2

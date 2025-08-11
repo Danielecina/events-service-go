@@ -1,4 +1,4 @@
-package repositoryevents
+package testutils
 
 import entities "events-service-go/domains/entities/events"
 

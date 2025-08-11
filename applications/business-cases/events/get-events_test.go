@@ -5,8 +5,9 @@ import (
 	"testing"
 
 	entities "events-service-go/domains/entities/events"
-	repositoryevents "events-service-go/infrastructure/repositories/events"
+	testutils "events-service-go/test-utils"
 
+	"github.com/gkampitakis/go-snaps/snaps"
 	"github.com/stretchr/testify/require"
 )
 
@@ -29,26 +30,30 @@ func TestGetAllEventsUseCase(t *testing.T) {
 			},
 		}
 
-		eventsRepositories := &repositoryevents.MockEventRepositoryClient{
+		eventsRepositories := &testutils.MockEventRepositoryClient{
 			GetAllMock: func(page int, limit int) ([]entities.Event, error) {
 				return expectedEvents, nil
 			},
 		}
 
-		events, err := eventsRepositories.GetAll(1, 10)
+		useCase := NewGetEventsUseCase(eventsRepositories)
 
+		response, err := useCase.Execute(1, 10)
 		require.NoError(t, err)
-		require.Equal(t, expectedEvents, events)
+		require.Len(t, response, 2)
+		snaps.MatchSnapshot(t, response)
 	})
 
 	t.Run("Execute_Error", func(t *testing.T) {
-		eventsRepositories := &repositoryevents.MockEventRepositoryClient{
+		eventsRepositories := &testutils.MockEventRepositoryClient{
 			GetAllMock: func(page int, limit int) ([]entities.Event, error) {
 				return nil, fmt.Errorf("db error")
 			},
 		}
 
-		_, err := eventsRepositories.GetAll(1, 10)
+		useCase := NewGetEventsUseCase(eventsRepositories)
+		got, err := useCase.Execute(1, 10)
 		require.Error(t, err)
+		require.Nil(t, got)
 	})
 }

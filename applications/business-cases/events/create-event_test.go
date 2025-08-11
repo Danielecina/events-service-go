@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	entities "events-service-go/domains/entities/events"
-	repositoryevents "events-service-go/infrastructure/repositories/events"
 	"events-service-go/presentation/dto"
+	testutils "events-service-go/test-utils"
 
 	"github.com/stretchr/testify/require"
 )
@@ -15,7 +15,7 @@ import (
 func TestCreateEventsUseCase(t *testing.T) {
 	t.Run("Execute_Success", func(t *testing.T) {
 		eventID := "test-event-id"
-		eventsRepositories := &repositoryevents.MockEventRepositoryClient{
+		eventsRepositories := &testutils.MockEventRepositoryClient{
 			CreateMock: func(event entities.Event) (entities.Event, error) {
 				return entities.Event{
 					EventID:     eventID,
@@ -46,7 +46,7 @@ func TestCreateEventsUseCase(t *testing.T) {
 	})
 
 	t.Run("Execute_Error", func(t *testing.T) {
-		eventsRepositories := &repositoryevents.MockEventRepositoryClient{
+		eventsRepositories := &testutils.MockEventRepositoryClient{
 			CreateMock: func(event entities.Event) (entities.Event, error) {
 				return entities.Event{}, fmt.Errorf("db error")
 			},

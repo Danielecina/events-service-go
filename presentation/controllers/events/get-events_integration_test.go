@@ -3,7 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"events-service-go/presentation/dto"
-	testutils "events-service-go/presentation/test-utils"
+	testutils "events-service-go/test-utils"
 	"fmt"
 	"io"
 	"net/http"
