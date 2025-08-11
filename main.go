@@ -21,7 +21,7 @@ func main() {
 
 	app := fiber.New()
 
-	app.Use(mw.MiddlewareLogger())
+	app.Use(mw.FormatLogger())
 
 	controllersevents.SetupEventsRoutes(app, db)
 

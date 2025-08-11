@@ -1,0 +1,15 @@
+
+[TestInfo - 1]
+[APP] 2006/01/02 15:04:05 logger.go:12: [INFO] test info message
+
+---
+
+[TestError - 1]
+[APP] 2006/01/02 15:04:05 logger.go:19: [ERROR] test error 123
+
+---
+
+[TestDebug - 1]
+[APP] 2006/01/02 15:04:05 logger.go:26: [DEBUG] test debug true
+
+---
