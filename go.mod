@@ -3,12 +3,12 @@ module events-service-go
 go 1.24.5
 
 require (
+	github.com/DATA-DOG/go-sqlmock v1.5.0
 	github.com/google/uuid v1.6.0
 	github.com/lib/pq v1.10.9
 )
 
 require (
-	github.com/DATA-DOG/go-sqlmock v1.5.0 // indirect
 	github.com/andybalholm/brotli v1.2.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/gkampitakis/ciinfo v0.3.2 // indirect
