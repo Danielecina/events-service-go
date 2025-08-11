@@ -4,11 +4,11 @@
 
 <p align="center">An simble service to test a <a href="http://nodejs.org" target="_blank">Go + Fiber + Postgres</a> for building efficient and scalable microservice</p>  
   <p align="center">
-    <a href="https://coveralls.io/github/Danielecina/events-service-go?branch=main">
-      <img src="https://coveralls.io/repos/github/Danielecina/events-service-go/badge.svg?branch=main" alt="Coverage Status" />
+    <a href='https://coveralls.io/github/Danielecina/events-service-go?branch=main'>
+      <img src='https://coveralls.io/repos/github/Danielecina/events-service-go/badge.svg?branch=main' alt='Coverage Status' />
     </a>
-    <a href="https://goreportcard.com/report/github.com/Danielecina/events-service-go">
-      <img src="https://goreportcard.com/badge/github.com/Danielecina/events-service-go" alt="Go Report Card" />
+    <a href="https://goreportcard.com/report/Danielecina/events-service-go">
+      <img src="https://goreportcard.com/badge/Danielecina/events-service-go" alt="Go Report Card" />
     </a>
   </p>
 </p>
@@ -48,6 +48,8 @@ $ docker-compose up --build
 ```bash
 # unit tests
 $ go test -v -count=1 ./...
+# update snaps
+$ UPDATE_SNAPS=true go test -v -count=1 ./...
 ```
 
 ## License
