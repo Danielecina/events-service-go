@@ -5,7 +5,7 @@
 <p align="center">An simble service to test a <a href="http://nodejs.org" target="_blank">Go + Fiber + Postgres</a> for building efficient and scalable microservice</p>  
   <p align="center">
     <a href='https://coveralls.io/github/Danielecina/events-service-go'>
-      <img src='https://coveralls.io/repos/github/Danielecina/events-service-go/badge.svg?branch=main' alt='Coverage Status' />
+      <img src='https://coveralls.io/repos/github/Danielecina/events-service-go/badge.svg' alt='Coverage Status' />
     </a>
     <a href="https://goreportcard.com/report/Danielecina/events-service-go">
       <img src="https://goreportcard.com/badge/Danielecina/events-service-go" alt="Go Report Card" />
