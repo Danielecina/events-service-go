@@ -1,9 +1,11 @@
 package databases
 
 import (
+	"database/sql"
 	"os"
 	"testing"
 
+	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/gkampitakis/go-snaps/snaps"
 	"github.com/stretchr/testify/require"
 )
@@ -34,4 +36,41 @@ func TestLoadConfig(t *testing.T) {
 	require.Equal(t, "disable", config.SSLMode)
 	require.Equal(t, "10", config.MaxIdleConns)
 	require.Equal(t, "5", config.MaxOpenConns)
+}
+
+func TestConnectDB(t *testing.T) {
+	db, dbMock, err := sqlmock.New()
+	require.NoError(t, err)
+
+	t.Cleanup(func() {
+		db.Close()
+	})
+
+	t.Run("Success", func(t *testing.T) {
+		sqlOpen = func(driverName, dataSourceName string) (*sql.DB, error) {
+			return db, nil
+		}
+		dbMock.ExpectPing()
+		dbMock.
+			ExpectExec("CREATE TABLE IF NOT EXISTS events").
+			WillReturnResult(sqlmock.NewResult(1, 1))
+
+		gotDB, err := ConnectDB()
+		require.NoError(t, err)
+		require.NotNil(t, gotDB)
+	})
+
+	t.Run("Connection error", func(t *testing.T) {
+		sqlOpen = func(driverName, dataSourceName string) (*sql.DB, error) {
+			return db, nil
+		}
+		dbMock.ExpectPing()
+		dbMock.
+			ExpectExec("CREATE TABLE IF NOT EXISTS events").
+			WillReturnError(sqlmock.ErrCancelled)
+
+		gotDB, err := ConnectDB()
+		require.Error(t, err)
+		require.Nil(t, gotDB)
+	})
 }

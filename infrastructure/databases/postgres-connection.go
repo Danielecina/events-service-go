@@ -25,8 +25,8 @@ type Config struct {
 }
 
 // LoadConfig loads the PostgreSQL configuration from environment variables or defaults.
-func LoadConfig() *Config {
-	return &Config{
+func LoadConfig() Config {
+	return Config{
 		Host:         utils.GetEnv("DB_HOST", "localhost"),
 		Port:         utils.GetEnv("DB_PORT", "5432"),
 		User:         utils.GetEnv("DB_USER", "products_user"),
@@ -44,10 +44,12 @@ func (c *Config) ConnectionString() string {
 		c.Host, c.Port, c.User, c.Password, c.DBName, c.SSLMode)
 }
 
+var sqlOpen = sql.Open
+
 // ConnectDB establishes a connection to the PostgreSQL database.
 func ConnectDB() (*sql.DB, error) {
 	config := LoadConfig()
-	db, err := sql.Open("postgres", config.ConnectionString())
+	db, err := sqlOpen("postgres", config.ConnectionString())
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect to database: %w", err)
 	}
