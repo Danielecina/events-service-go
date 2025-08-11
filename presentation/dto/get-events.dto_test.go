@@ -10,11 +10,13 @@ import (
 
 func TestGetEventsResponse(t *testing.T) {
 	t.Run("Expect to serialize GetEventsResponse correctly", func(t *testing.T) {
-		resp := GetEventsResponse{
-			Name:        "Evento",
-			Description: "Descrizione",
-			Location:    "Luogo",
-			UserID:      "user-1",
+		resp := []GetEventResponse{
+			{
+				Name:        "Evento",
+				Description: "Descrizione",
+				Location:    "Luogo",
+				UserID:      "user-1",
+			},
 		}
 		marshalResp, err := json.Marshal(resp)
 		require.NoError(t, err)

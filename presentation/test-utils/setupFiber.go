@@ -9,6 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+// SetupFiber initializes a Fiber app with the provided routes and returns it along with a sqlmock instance.
 func SetupFiber(
 	t *testing.T,
 	setupRoutes func(app *fiber.App, db *sql.DB),

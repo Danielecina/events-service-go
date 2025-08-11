@@ -12,7 +12,7 @@ type GetEventsUseCase struct {
 }
 
 // Execute retrieves all events
-func (uc *GetEventsUseCase) Execute(page int, limit int) ([]dto.GetEventsResponse, error) {
+func (uc *GetEventsUseCase) Execute(page int, limit int) ([]dto.GetEventResponse, error) {
 	logger.Debug("Starting business case to get Events")
 
 	response, err := uc.repo.GetAll(page, limit)
@@ -22,13 +22,15 @@ func (uc *GetEventsUseCase) Execute(page int, limit int) ([]dto.GetEventsRespons
 	}
 
 	logger.Info("Successfully retrieved %d events", len(response))
-	var events []dto.GetEventsResponse
+	var events []dto.GetEventResponse
 	for _, event := range response {
-		events = append(events, dto.GetEventsResponse{
+		events = append(events, dto.GetEventResponse{
 			Name:        event.Name,
 			Description: event.Description,
 			Location:    event.Location,
 			UserID:      event.UserID,
+			EventID:     event.EventID,
+			CreatedAt:   event.CreatedAt.Format("2006-01-02T15:04:05Z07:00"),
 		})
 	}
 

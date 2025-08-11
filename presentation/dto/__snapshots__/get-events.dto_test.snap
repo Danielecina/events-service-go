@@ -1,6 +1,6 @@
 
 [TestGetEventsResponse/Expect_to_serialize_GetEventsResponse_correctly - 1]
-{"name":"Evento","description":"Descrizione","location":"Luogo","user_id":"user-1"}
+[{"name":"Evento","description":"Descrizione","location":"Luogo","user_id":"user-1","created_at":"","event_id":""}]
 get_event_response.json
 ---
 

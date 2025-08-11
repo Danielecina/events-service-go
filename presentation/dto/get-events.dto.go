@@ -1,11 +1,13 @@
 package dto
 
-// GetEventsResponse represents the response after getting events
-type GetEventsResponse struct {
+// GetEventResponse represents the response after getting an event
+type GetEventResponse struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	Location    string `json:"location,omitempty"`
 	UserID      string `json:"user_id"`
+	CreatedAt   string `json:"created_at"`
+	EventID     string `json:"event_id"`
 }
 
 // GetEventsErrorResponse represents an error response

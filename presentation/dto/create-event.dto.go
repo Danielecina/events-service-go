@@ -13,7 +13,7 @@ type CreateEventResponse struct {
 	EventID string `json:"event_id"`
 }
 
-// ErrorResponse represents an error response
+// CreateEventErrorResponse represents an error response
 type CreateEventErrorResponse struct {
 	Message    string   `json:"message"`
 	ErrorCode  string   `json:"error_code"`
