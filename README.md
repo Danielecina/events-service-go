@@ -54,7 +54,7 @@ $ go test -v -count=1 ./...
 
 This project is [MIT licensed](https://opensource.org/licenses/MIT).
 
-[go-report-card]: https://goreportcard.com/badge/github.com/Danielecina/events-service-go
-[go-report-card-url]: https://goreportcard.com/report/github.com/Danielecina/events-service-go
+[go-report-card]: https://goreportcard.com/badge/Danielecina/events-service-go
+[go-report-card-url]: https://goreportcard.com/report/Danielecina/events-service-go
 [coveralls-image]: https://coveralls.io/repos/github/Danielecina/events-service-go/badge.svg?branch=main
 [coveralls-url]: https://coveralls.io/github/Danielecina/events-service-go?branch=main
